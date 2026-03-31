@@ -9,7 +9,7 @@
    .navbar-brand classes: d-flex align-items-center me-0 px-3 py-2
    logo: SOSRacismo_hand_logo.svg as <img> height=32px
    .flex-column: padding .15rem 0
-   .byline: font-size .5rem letter-spacing .1rem text-uppercase font-monospace
+   .byline: font-size .6rem letter-spacing .1rem text-uppercase font-monospace
    bg: #000000 (pure black) */
 .sos-navbar {
   background-color: #000000;
@@ -46,7 +46,7 @@
   display: flex;
   flex-direction: column;
   padding: 0.15rem 0;
-  margin-left: 0.5rem; /* small visual gap between logo and text, like Paperless */
+  margin-left: 0.5rem;
 }
 
 /* matches: .navbar-brand font-size:1rem */
@@ -57,13 +57,13 @@
   line-height: 1.5;
 }
 
-/* matches: .byline font-size:.5rem letter-spacing:.1rem + Bootstrap text-uppercase font-monospace */
+/* matches: .byline font-size:.6rem letter-spacing:.1rem + Bootstrap text-uppercase font-monospace */
 .sos-navbar-byline {
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   letter-spacing: 0.1rem;
   text-transform: uppercase;
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  color: rgba(255,255,255,.55);
+  color: rgba(255,255,255,1);
   line-height: 1.5;
 }
 
@@ -72,7 +72,7 @@
   align-items: center;
   gap: 0.25rem;
   margin-left: auto;
-  padding-right: 1rem;
+  padding-right: 7.5rem;  /* ~120px — accounts for missing user button space in Arquivo navbar */
 }
 
 .sos-navbar-link {

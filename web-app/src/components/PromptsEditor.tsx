@@ -14,7 +14,7 @@ const PromptsEditor: React.FC = () => {
     fetch('./api/prompts', { signal: controller.signal })
       .then((res) => {
         if (!res.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Resposta de rede não foi bem-sucedida');
         }
         return res.json();
       })
@@ -69,15 +69,15 @@ const PromptsEditor: React.FC = () => {
         if (!res.ok) {
           const ct = res.headers.get('content-type') || '';
           if (ct.includes('application/json')) {
-            return res.json().then((err) => { throw new Error(err.error || 'Failed to save prompt'); });
+            return res.json().then((err) => { throw new Error(err.error || 'Falha ao guardar o prompt'); });
           }
-          return res.text().then((txt) => { throw new Error(txt || 'Failed to save prompt'); });
+          return res.text().then((txt) => { throw new Error(txt || 'Falha ao guardar o prompt'); });
         }
         return res.json();
       })
       .then(() => {
         setPrompts((prev) => ({ ...prev, [selectedPrompt]: content }));
-        setSuccessMessage('Prompt saved successfully!');
+        setSuccessMessage('Prompt guardado com sucesso!');
         setTimeout(() => setSuccessMessage(null), 3000);
       })
       .catch((err) => {
@@ -88,16 +88,16 @@ const PromptsEditor: React.FC = () => {
   };
 
   if (isLoading) {
-    return <div className="p-4">Loading prompts...</div>;
+    return <div className="p-4">A carregar prompts...</div>;
   }
 
   if (error && !successMessage) {
-    return <div className="p-4 text-red-500">Error: {error}</div>;
+    return <div className="p-4 text-red-500">Erro: {error}</div>;
   }
 
   return (
     <div className="p-6 bg-gray-100 dark:bg-gray-900">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-200">Edit Prompts</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-200">Editar Prompts</h1>
 
       {successMessage && (
         <div className="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transition-transform transform animate-bounce" role="alert">
@@ -114,7 +114,7 @@ const PromptsEditor: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-1">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
-            <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">Available Prompts</h2>
+            <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">Prompts Disponíveis</h2>
             <ul>
               {Object.keys(prompts).sort().map((filename) => (
                 <li key={filename}
@@ -132,7 +132,7 @@ const PromptsEditor: React.FC = () => {
           {selectedPrompt ? (
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
               <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">
-                Editing: <span className="font-mono text-blue-600 dark:text-blue-400">{selectedPrompt}</span>
+                A editar: <span className="font-mono text-blue-600 dark:text-blue-400">{selectedPrompt}</span>
               </h2>
               <textarea
                 className="w-full h-96 p-3 border border-gray-300 dark:border-gray-600 rounded-md font-mono text-sm bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
@@ -150,13 +150,13 @@ const PromptsEditor: React.FC = () => {
                       : 'bg-blue-600 text-white hover:bg-blue-700 hover:scale-105 focus:ring-blue-500'
                   }`}
                 >
-                  {isSaving ? 'Saving…' : 'Save Changes'}
+                  {isSaving ? 'A guardar…' : 'Guardar Alterações'}
                 </button>
               </div>
             </div>
           ) : (
             <div className="flex items-center justify-center h-full bg-white dark:bg-gray-800 rounded-lg shadow p-4 text-gray-500 dark:text-gray-400">
-              <p>Select a prompt from the list to start editing.</p>
+              <p>Seleccione um prompt da lista para começar a editar.</p>
             </div>
           )}
         </div>

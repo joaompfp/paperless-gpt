@@ -5,9 +5,12 @@
   font-family: 'Hanken Grotesk', system-ui, sans-serif;
 }
 
-/* Navbar — pixel-matches Paperless-NGX Angular navbar:
-   bg-dark = #212529, brand font-size 1rem, .flex-column padding .15rem 0,
-   byline font-size .5rem letter-spacing .1rem text-uppercase font-monospace */
+/* Navbar — exact match to Paperless-NGX Angular:
+   .navbar-brand classes: d-flex align-items-center me-0 px-3 py-3
+   SVG: width=1.5em height=2em min-width=1.5em fill=currentColor
+   .flex-column: padding .15rem 0
+   .byline: font-size .5rem letter-spacing .1rem text-uppercase font-monospace
+   bg: Bootstrap bg-dark = #212529 */
 .sos-navbar {
   background-color: #212529;
   color: rgba(255,255,255,.55);
@@ -19,28 +22,35 @@
   z-index: 9999;
 }
 
+/* matches: d-flex align-items-center me-0 px-3 py-3 */
 .sos-navbar-brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
+  gap: 0;
+  padding: 0.75rem 1rem;  /* py-3 = .75rem, px-3 = 1rem */
+  margin-right: 0;
   text-decoration: none;
   color: rgba(255,255,255,.9);
 }
 
+/* SVG: width=1.5em height=2em min-width=1.5em fill=currentColor */
 .sos-navbar-brand svg {
   width: 1.5em;
   height: 2em;
   min-width: 1.5em;
   fill: currentColor;
+  flex-shrink: 0;
 }
 
+/* matches: .flex-column with padding:.15rem 0 — sits right next to the SVG */
 .sos-navbar-brand-text {
   display: flex;
   flex-direction: column;
   padding: 0.15rem 0;
+  margin-left: 0.5rem; /* small visual gap between logo and text, like Paperless */
 }
 
+/* matches: .navbar-brand font-size:1rem */
 .sos-navbar-title {
   color: rgba(255,255,255,.9);
   font-size: 1rem;
@@ -48,6 +58,7 @@
   line-height: 1.2;
 }
 
+/* matches: .byline font-size:.5rem letter-spacing:.1rem + Bootstrap text-uppercase font-monospace */
 .sos-navbar-byline {
   font-size: 0.5rem;
   letter-spacing: 0.1rem;
@@ -59,7 +70,7 @@
 .sos-navbar-links {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
   margin-left: auto;
   padding-right: 1rem;
 }
@@ -69,7 +80,7 @@
   text-decoration: none;
   font-size: 0.875rem;
   padding: 0.25rem 0.5rem;
-  transition: opacity 0.15s;
+  transition: color 0.15s;
 }
 
 .sos-navbar-link:hover {

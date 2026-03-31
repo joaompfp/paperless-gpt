@@ -5,14 +5,14 @@
   font-family: 'Hanken Grotesk', system-ui, sans-serif;
 }
 
-/* Navbar — exact match to Paperless-NGX Angular:
+/* Navbar — matches Paperless-NGX Angular SOS instance:
    .navbar-brand classes: d-flex align-items-center me-0 px-3 py-3
-   SVG: width=1.5em height=2em min-width=1.5em fill=currentColor
+   logo: SOSRacismo_hand_logo.svg as <img> height=32px
    .flex-column: padding .15rem 0
    .byline: font-size .5rem letter-spacing .1rem text-uppercase font-monospace
-   bg: Bootstrap bg-dark = #212529 */
+   bg: #000000 (pure black) */
 .sos-navbar {
-  background-color: #212529;
+  background-color: #000000;
   color: rgba(255,255,255,.55);
   padding: 0;
   display: flex;
@@ -33,16 +33,14 @@
   color: rgba(255,255,255,.9);
 }
 
-/* SVG: width=1.5em height=2em min-width=1.5em fill=currentColor */
-.sos-navbar-brand svg {
-  width: 1.5em;
-  height: 2em;
-  min-width: 1.5em;
-  fill: currentColor;
+/* logo img sizing */
+.sos-navbar-brand img {
+  height: 32px;
+  width: auto;
   flex-shrink: 0;
 }
 
-/* matches: .flex-column with padding:.15rem 0 — sits right next to the SVG */
+/* matches: .flex-column with padding:.15rem 0 — sits right next to the logo */
 .sos-navbar-brand-text {
   display: flex;
   flex-direction: column;

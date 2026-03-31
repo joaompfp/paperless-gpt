@@ -6,7 +6,7 @@
 }
 
 /* Navbar — matches Paperless-NGX Angular SOS instance:
-   .navbar-brand classes: d-flex align-items-center me-0 px-3 py-3
+   .navbar-brand classes: d-flex align-items-center me-0 px-3 py-2
    logo: SOSRacismo_hand_logo.svg as <img> height=32px
    .flex-column: padding .15rem 0
    .byline: font-size .5rem letter-spacing .1rem text-uppercase font-monospace
@@ -22,12 +22,12 @@
   z-index: 9999;
 }
 
-/* matches: d-flex align-items-center me-0 px-3 py-3 */
+/* matches: d-flex align-items-center me-0 px-3 py-2 */
 .sos-navbar-brand {
   display: flex;
   align-items: center;
   gap: 0;
-  padding: 1rem;  /* py-3 = 1rem, px-3 = 1rem in Bootstrap 5 */
+  padding: 0.5rem 1rem;  /* py-2 = 0.5rem, px-3 = 1rem — matches Angular navbar-brand */
   margin-right: 0;
   text-decoration: none;
   color: rgba(255,255,255,.9);
@@ -54,7 +54,7 @@
   color: rgba(255,255,255,.9);
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.5;
 }
 
 /* matches: .byline font-size:.5rem letter-spacing:.1rem + Bootstrap text-uppercase font-monospace */
@@ -64,6 +64,7 @@
   text-transform: uppercase;
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   color: rgba(255,255,255,.55);
+  line-height: 1.5;
 }
 
 .sos-navbar-links {

@@ -32,8 +32,6 @@ const App: React.FC = () => {
     fetchVersion();
   }, []);
 
-  // Keep the base path (path prefix from reverse-proxy) and remove the app path,
-  // convert "/" to "" so Router basename is empty at root.
   const rawBasename = window.location.pathname.replace(/(\/[^/]+)$/, "/");
   const basename = rawBasename === "/" ? "" : rawBasename;
 
@@ -67,23 +65,18 @@ const App: React.FC = () => {
                   <Route path="/settings" element={<Settings />} />
                 </Routes>
               </div>
-              <footer className="border-t-2 border-gray-200 bg-blue-50 p-5 text-center text-base text-gray-700 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:shadow-[0_-2px_10px_rgba(0,0,0,0.2)]">
-                {versionInfo && (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">arquivo-sos-ia</span> {versionInfo.version}
-                    {versionInfo.commit && versionInfo.commit !== 'devCommit' && versionInfo.commit.length >= 7 && (
-                      <span className="ml-2">({versionInfo.commit.slice(0, 7)})</span>
-                    )}
-                    {' · '}baseado em{' '}
-                    <a
-                      href="https://github.com/icereed/paperless-gpt"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline hover:text-gray-700 dark:hover:text-gray-200"
-                    >
-                      paperless-gpt
-                    </a>
-                  </p>
+              <footer className="border-t border-gray-200 bg-gray-50 p-4 text-center text-sm text-gray-500">
+                <a
+                  href="https://github.com/icereed/paperless-gpt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-gray-700"
+                >
+                  paperless-gpt
+                </a>
+                {' — adaptado para SOS Racismo'}
+                {versionInfo && versionInfo.commit && versionInfo.commit !== 'devCommit' && versionInfo.commit.length >= 7 && (
+                  <span className="ml-2 text-gray-400">({versionInfo.commit.slice(0, 7)})</span>
                 )}
               </footer>
             </div>

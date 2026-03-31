@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
-import "react-tag-autocomplete/example/src/styles.css"; // Ensure styles are loaded
+import "react-tag-autocomplete/example/src/styles.css";
 import DocumentsToProcess from "./components/DocumentsToProcess";
 import NoDocuments from "./components/NoDocuments";
 import ArrowPathIcon from "@heroicons/react/24/outline/ArrowPathIcon";
@@ -266,8 +266,8 @@ const DocumentProcessor: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-white dark:bg-gray-900">
-        <div className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+      <div className="flex items-center justify-center min-h-screen bg-white">
+        <div className="text-xl font-semibold text-gray-800">
           A carregar documentos...
         </div>
       </div>
@@ -275,13 +275,20 @@ const DocumentProcessor: React.FC = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
-      <header className="text-center">
-        <h1 className="text-4xl font-bold mb-8">Arquivo SOS Racismo — IA</h1>
+    <div className="max-w-5xl mx-auto p-6 bg-white text-gray-800">
+      <header className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">Processamento Automático</h1>
+        <p className="text-gray-600 text-base">
+          Esta página usa modelos de Inteligência Artificial (LLM opensource) para analisar os documentos
+          marcados com a etiqueta <code className="bg-gray-100 px-1 rounded text-sm">paperless-gpt</code> e
+          sugerir automaticamente títulos, etiquetas, tipo de documento, correspondente e data.
+          Os documentos novos são processados a cada 15 minutos — aqui podes também correr a análise manualmente
+          e rever as sugestões antes de as aplicar.
+        </p>
       </header>
 
       {error && (
-        <div className="mb-4 p-4 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded">
+        <div className="mb-4 p-4 bg-red-100 text-red-800 rounded">
           {error}
         </div>
       )}
@@ -291,19 +298,19 @@ const DocumentProcessor: React.FC = () => {
       ) : suggestions.length === 0 ? (
         <DocumentsToProcess documents={documents}>
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">Documentos a Processar</h2>
+            <h2 className="text-2xl font-semibold text-gray-700">Documentos a Processar</h2>
             <div className="flex space-x-2">
               <button
                 onClick={reloadDocuments}
                 disabled={processing}
-                className="bg-blue-600 text-white dark:bg-blue-800 dark:text-gray-200 px-4 py-2 rounded hover:bg-blue-700 dark:hover:bg-blue-900 focus:outline-none"
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none"
               >
                 <ArrowPathIcon className="h-5 w-5" />
               </button>
               <button
                 onClick={handleProcessDocuments}
                 disabled={processing}
-                className="bg-blue-600 text-white dark:bg-blue-800 dark:text-gray-200 px-4 py-2 rounded hover:bg-blue-700 dark:hover:bg-blue-900 focus:outline-none"
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none"
               >
                 {processing ? "A processar..." : "Gerar Sugestões"}
               </button>
@@ -312,28 +319,28 @@ const DocumentProcessor: React.FC = () => {
 
           <div className="flex space-x-4 mb-6">
             <label className="flex items-center space-x-2">
-              <input type="checkbox" checked={generateTitles} onChange={(e) => setGenerateTitles(e.target.checked)} className="dark:bg-gray-700 dark:border-gray-600" />
-              <span className="text-gray-700 dark:text-gray-200">Gerar Títulos</span>
+              <input type="checkbox" checked={generateTitles} onChange={(e) => setGenerateTitles(e.target.checked)} />
+              <span className="text-gray-700">Gerar Títulos</span>
             </label>
             <label className="flex items-center space-x-2">
-              <input type="checkbox" checked={generateTags} onChange={(e) => setGenerateTags(e.target.checked)} className="dark:bg-gray-700 dark:border-gray-600" />
-              <span className="text-gray-700 dark:text-gray-200">Gerar Etiquetas</span>
+              <input type="checkbox" checked={generateTags} onChange={(e) => setGenerateTags(e.target.checked)} />
+              <span className="text-gray-700">Gerar Etiquetas</span>
             </label>
             <label className="flex items-center space-x-2">
-              <input type="checkbox" checked={generateCorrespondents} onChange={(e) => setGenerateCorrespondents(e.target.checked)} className="dark:bg-gray-700 dark:border-gray-600" />
-              <span className="text-gray-700 dark:text-gray-200">Gerar Correspondentes</span>
+              <input type="checkbox" checked={generateCorrespondents} onChange={(e) => setGenerateCorrespondents(e.target.checked)} />
+              <span className="text-gray-700">Gerar Correspondentes</span>
             </label>
             <label className="flex items-center space-x-2">
-              <input type="checkbox" checked={generateDocumentTypes} onChange={(e) => setGenerateDocumentTypes(e.target.checked)} className="dark:bg-gray-700 dark:border-gray-600" />
-              <span className="text-gray-700 dark:text-gray-200">Gerar Tipos de Documento</span>
+              <input type="checkbox" checked={generateDocumentTypes} onChange={(e) => setGenerateDocumentTypes(e.target.checked)} />
+              <span className="text-gray-700">Gerar Tipos de Documento</span>
             </label>
             <label className="flex items-center space-x-2">
-              <input type="checkbox" checked={generateCreatedDate} onChange={(e) => setGenerateCreatedDate(e.target.checked)} className="dark:bg-gray-700 dark:border-gray-600" />
-              <span className="text-gray-700 dark:text-gray-200">Gerar Data de Criação</span>
+              <input type="checkbox" checked={generateCreatedDate} onChange={(e) => setGenerateCreatedDate(e.target.checked)} />
+              <span className="text-gray-700">Gerar Data de Criação</span>
             </label>
             <label className="flex items-center space-x-2">
-              <input type="checkbox" checked={generateCustomFields} onChange={(e) => setGenerateCustomFields(e.target.checked)} className="dark:bg-gray-700 dark:border-gray-600" />
-              <span className="text-gray-700 dark:text-gray-200">Gerar Campos Personalizados</span>
+              <input type="checkbox" checked={generateCustomFields} onChange={(e) => setGenerateCustomFields(e.target.checked)} />
+              <span className="text-gray-700">Gerar Campos Personalizados</span>
             </label>
           </div>
         </DocumentsToProcess>

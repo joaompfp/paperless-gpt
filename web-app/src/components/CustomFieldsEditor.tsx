@@ -26,20 +26,20 @@ const CustomFieldsEditor: React.FC = () => {
     setIsLoading(true);
     try {
       const settingsRes = await fetch('./api/settings');
-      if (!settingsRes.ok) throw new Error('Failed to fetch settings');
+      if (!settingsRes.ok) throw new Error('Erro ao carregar configurações');
       const settingsData = await settingsRes.json();
       setSettings(settingsData.settings);
       setInitialSettings(settingsData.settings);
 
       const customFieldsUrl = forcePull ? './api/custom_fields?force_pull=true' : './api/custom_fields';
       const customFieldsRes = await fetch(customFieldsUrl);
-      if (!customFieldsRes.ok) throw new Error('Failed to fetch custom fields');
+      if (!customFieldsRes.ok) throw new Error('Erro ao carregar campos personalizados');
       const customFieldsData = await customFieldsRes.json();
       setCustomFields(customFieldsData || []);
 
     } catch (err) {
       console.error('Error fetching initial data:', err);
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setError(err instanceof Error ? err.message : 'Ocorreu um erro desconhecido');
     } finally {
       setIsLoading(false);
     }
@@ -68,14 +68,14 @@ const CustomFieldsEditor: React.FC = () => {
       });
       if (!response.ok) {
         const errData = await response.json();
-        throw new Error(errData.error || 'Failed to save settings');
+        throw new Error(errData.error || 'Erro ao carregar configurações');
       }
       setInitialSettings(settings);
-      setSuccessMessage('Settings saved successfully!');
+      setSuccessMessage('Configurações guardadas com sucesso!');
       setTimeout(() => setSuccessMessage(null), 3000);
     } catch (err) {
       console.error('Error saving settings:', err);
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setError(err instanceof Error ? err.message : 'Ocorreu um erro desconhecido');
       setTimeout(() => setError(null), 5000);
     } finally {
       setIsSaving(false);
@@ -95,7 +95,7 @@ const CustomFieldsEditor: React.FC = () => {
   };
 
   if (isLoading) {
-    return <div className="p-6">Loading...</div>;
+    return <div className="p-6">A carregar...</div>;
   }
 
   if (error) {
@@ -107,19 +107,19 @@ const CustomFieldsEditor: React.FC = () => {
   }
 
   if (!settings) {
-    return <div className="p-6">No settings found.</div>;
+    return <div className="p-6">Nenhuma configuração encontrada.</div>;
   }
 
   return (
     <div className="p-6 bg-gray-100 dark:bg-gray-900">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200">Custom Fields</h1>
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200">Campos Personalizados</h1>
         <button
           onClick={() => fetchInitialData(true)}
           className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          aria-label="Refresh custom fields"
+          aria-label="Actualizar campos personalizados"
         >
-          Refresh
+          Actualizar
         </button>
       </div>
 
@@ -132,7 +132,7 @@ const CustomFieldsEditor: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-1">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
-            <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">General Settings</h2>
+            <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">Configurações Gerais</h2>
             <div className="flex items-center mb-4">
               <input
                 type="checkbox"
@@ -142,13 +142,13 @@ const CustomFieldsEditor: React.FC = () => {
                 className="w-4 h-4 mr-2"
               />
               <label htmlFor="customFieldsEnable">
-                Automatically generate custom fields
+                Gerar campos personalizados automaticamente
               </label>
             </div>
 
             <fieldset disabled={!settings.custom_fields_enable} className="disabled:opacity-50">
               <div>
-                <h3 className="mb-2 font-semibold">Write Mode:</h3>
+                <h3 className="mb-2 font-semibold">Modo de Escrita:</h3>
                 <div className="flex items-center mb-2">
                   <input
                     type="radio"
@@ -160,7 +160,7 @@ const CustomFieldsEditor: React.FC = () => {
                     className="w-4 h-4 mr-2"
                   />
                   <label htmlFor="writeModeAppend">
-                    Append (add new custom-fields, keep existing (safest option))
+                    Adicionar (adiciona novos campos, mantém os existentes (mais seguro))
                   </label>
                 </div>
                 <div className="flex items-center mb-2">
@@ -174,7 +174,7 @@ const CustomFieldsEditor: React.FC = () => {
                     className="w-4 h-4 mr-2"
                   />
                   <label htmlFor="writeModeUpdate">
-                    Update (add new custom-fields, update existing)
+                    Actualizar (adiciona novos campos, actualiza os existentes)
                   </label>
                 </div>
                 <div className="flex items-center">
@@ -188,7 +188,7 @@ const CustomFieldsEditor: React.FC = () => {
                     className="w-4 h-4 mr-2"
                   />
                   <label htmlFor="writeModeReplace">
-                    Replace (replace all custom-fields with suggestions only)
+                    Substituir (substitui todos os campos pelas sugestões)
                   </label>
                 </div>
               </div>
@@ -199,7 +199,7 @@ const CustomFieldsEditor: React.FC = () => {
         <div className="md:col-span-2">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 h-full">
             <fieldset disabled={!settings.custom_fields_enable} className="disabled:opacity-50">
-              <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">Fields to process:</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-300">Campos a processar:</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {customFields.map((field) => (
                   <div key={field.id} className="flex items-center">
@@ -229,7 +229,7 @@ const CustomFieldsEditor: React.FC = () => {
               : 'bg-blue-600 text-white hover:bg-blue-700 hover:scale-105 focus:ring-blue-500'
           } ${!isDirty && !isSaving ? 'disabled:bg-gray-400 disabled:cursor-not-allowed' : ''}`}
         >
-          {isSaving ? 'Saving…' : 'Save Changes'}
+          {isSaving ? 'A guardar…' : 'Guardar Alterações'}
         </button>
       </div>
     </div>

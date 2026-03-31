@@ -49,19 +49,12 @@ const AdhocAnalysis: React.FC = () => {
 
   const handleSelectDocument = (docId: number) => {
     setSelectedDocuments((prev) =>
-      prev.includes(docId)
-        ? prev.filter((id) => id !== docId)
-        : [...prev, docId]
+      prev.includes(docId) ? prev.filter((id) => id !== docId) : [...prev, docId]
     );
   };
 
-  const handleSelectAll = () => {
-    setSelectedDocuments(documents.map((doc) => doc.id));
-  };
-
-  const handleSelectNone = () => {
-    setSelectedDocuments([]);
-  };
+  const handleSelectAll = () => setSelectedDocuments(documents.map((doc) => doc.id));
+  const handleSelectNone = () => setSelectedDocuments([]);
 
   const handleStartAnalysis = async () => {
     try {
@@ -82,24 +75,20 @@ const AdhocAnalysis: React.FC = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Ad-hoc Analysis</h1>
+      <h1 className="text-3xl font-bold mb-6">Análise Manual</h1>
 
       <div className="mb-6">
         <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">Documents to Analyze</h2>
-            <div className="flex space-x-2">
-                <button onClick={handleSelectAll} className="bg-gray-200 dark:bg-gray-600 px-4 py-2 rounded">Select All</button>
-                <button onClick={handleSelectNone} className="bg-gray-200 dark:bg-gray-600 px-4 py-2 rounded">Select None</button>
-            </div>
+          <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">Documentos a Analisar</h2>
+          <div className="flex space-x-2">
+            <button onClick={handleSelectAll} className="bg-gray-200 dark:bg-gray-600 px-4 py-2 rounded">Seleccionar Tudo</button>
+            <button onClick={handleSelectNone} className="bg-gray-200 dark:bg-gray-600 px-4 py-2 rounded">Seleccionar Nenhum</button>
+          </div>
         </div>
         {loading ? (
-          <p>Loading documents...</p>
+          <p>A carregar documentos...</p>
         ) : documents.length === 0 ? (
-          <NoDocuments
-            filterTag={filterTag}
-            onReload={fetchDocuments}
-            processing={processing}
-          />
+          <NoDocuments filterTag={filterTag} onReload={fetchDocuments} processing={processing} />
         ) : (
           <DocumentsToProcess
             documents={documents}
@@ -111,7 +100,7 @@ const AdhocAnalysis: React.FC = () => {
       </div>
 
       <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Analysis Prompt</h2>
+        <h2 className="text-xl font-semibold mb-2">Prompt de Análise</h2>
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
@@ -124,26 +113,26 @@ const AdhocAnalysis: React.FC = () => {
           onClick={() => setPrompt(originalPrompt)}
           className="bg-gray-300 dark:bg-gray-600 px-4 py-2 rounded hover:bg-gray-400 dark:hover:bg-gray-500"
         >
-          Reset to Default
+          Repor Predefinições
         </button>
         <button
           onClick={handleStartAnalysis}
           disabled={processing || selectedDocuments.length === 0}
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400"
         >
-          {processing ? 'Analyzing...' : 'Start Analysis'}
+          {processing ? 'A analisar...' : 'Iniciar Análise'}
         </button>
       </div>
 
       <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Analysis Result</h2>
+        <h2 className="text-xl font-semibold mb-2">Resultado da Análise</h2>
         <div className={`p-4 border rounded ${!analysisResult && !error ? 'bg-gray-200 dark:bg-gray-800 text-gray-500' : 'bg-gray-50 dark:bg-gray-700 dark:border-gray-600'}`}>
           {error ? (
             <pre className="whitespace-pre-wrap text-red-500">{error}</pre>
           ) : analysisResult ? (
             <pre className="whitespace-pre-wrap">{analysisResult}</pre>
           ) : (
-            <p>Start analysis to show results</p>
+            <p>Inicie a análise para ver os resultados</p>
           )}
         </div>
       </div>

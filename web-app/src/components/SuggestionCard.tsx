@@ -58,7 +58,7 @@ const SuggestionCard: React.FC<SuggestionCardProps> = ({
       </div>
       <div className="mt-4">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-          Suggested Title
+          Título Sugerido
         </label>
         <input
           type="text"
@@ -68,7 +68,7 @@ const SuggestionCard: React.FC<SuggestionCardProps> = ({
         />
         <div className="mt-4">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Suggested Tags
+            Etiquetas Sugeridas
           </label>
           <ReactTags
             selected={
@@ -93,7 +93,7 @@ const SuggestionCard: React.FC<SuggestionCardProps> = ({
             }
             onDelete={(index) => onTagDeletion(suggestion.id, index)}
             allowNew={true}
-            placeholderText="Add a tag"
+            placeholderText="Adicionar etiqueta"
             classNames={{
               root: "react-tags dark:bg-gray-800",
               rootIsActive: "is-active",
@@ -115,44 +115,44 @@ const SuggestionCard: React.FC<SuggestionCardProps> = ({
         </div>
         <div className="mt-4">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Suggested Correspondent
+            Correspondente Sugerido
           </label>
           <input
             type="text"
             value={suggestion.suggested_correspondent || ""}
             onChange={(e) => onCorrespondentChange(suggestion.id, e.target.value)}
             className="w-full border border-gray-300 dark:border-gray-600 rounded px-2 py-1 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200"
-            placeholder="Correspondent"
+            placeholder="Correspondente"
           />
         </div>
         <div className="mt-4">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Suggested Document Type
+            Tipo de Documento Sugerido
           </label>
           <input
             type="text"
             value={suggestion.suggested_document_type || ""}
             onChange={(e) => onDocumentTypeChange(suggestion.id, e.target.value)}
             className="w-full border border-gray-300 dark:border-gray-600 rounded px-2 py-1 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200"
-            placeholder="Document Type"
+            placeholder="Tipo de Documento"
           />
         </div>
         <div className="mt-4">
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Suggested Created Date
+            Data de Criação Sugerida
           </label>
           <input
             type="text"
             value={suggestion.suggested_created_date || ""}
             onChange={(e) => onCreatedDateChange(suggestion.id, e.target.value)}
             className="w-full border border-gray-300 dark:border-gray-600 rounded px-2 py-1 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200"
-            placeholder="Created Date"
+            placeholder="Data de Criação"
           />
         </div>
         {suggestion.suggested_custom_fields && suggestion.suggested_custom_fields.length > 0 && (
           <div className="mt-4">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Suggested Custom Fields
+              Campos Personalizados Sugeridos
             </label>
             <div className="mt-2 space-y-2">
               {suggestion.suggested_custom_fields?.map((field) => (

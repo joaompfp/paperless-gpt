@@ -30,25 +30,20 @@ const History: React.FC = () => {
   const [totalItems, setTotalItems] = useState(0);
   const pageSize = 20;
 
-  // Get Paperless URL
   useEffect(() => {
     const fetchUrl = async () => {
       try {
         const response = await fetch('./api/paperless-url');
-        if (!response.ok) {
-          throw new Error('Failed to fetch public URL');
-        }
+        if (!response.ok) throw new Error('Failed to fetch public URL');
         const { url } = await response.json();
         setPaperlessUrl(url);
       } catch (err) {
         console.error('Error fetching Paperless URL:', err);
       }
     };
-    
     fetchUrl();
   }, []);
 
-  // Get modifications with pagination
   useEffect(() => {
     fetchModifications(currentPage);
   }, [currentPage]);
@@ -57,9 +52,7 @@ const History: React.FC = () => {
     setLoading(true);
     try {
       const response = await fetch(`./api/modifications?page=${page}&pageSize=${pageSize}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch modifications');
-      }
+      if (!response.ok) throw new Error('Failed to fetch modifications');
       const data: PaginatedResponse = await response.json();
       setModifications(data.items);
       setTotalPages(data.totalPages);
@@ -73,21 +66,11 @@ const History: React.FC = () => {
 
   const handleUndo = async (id: number) => {
     try {
-      const response = await fetch(`./api/undo-modification/${id}`, {
-        method: 'POST',
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to undo modification');
-      }
-  
-      // Use ISO 8601 format for consistency
+      const response = await fetch(`./api/undo-modification/${id}`, { method: 'POST' });
+      if (!response.ok) throw new Error('Failed to undo modification');
       const now = new Date().toISOString();
-      
-      setModifications(mods => mods.map(mod => 
-        mod.ID === id
-          ? { ...mod, Undone: true, UndoneDate: now }
-          : mod
+      setModifications(mods => mods.map(mod =>
+        mod.ID === id ? { ...mod, Undone: true, UndoneDate: now } : mod
       ));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to undo modification');
@@ -113,10 +96,10 @@ const History: React.FC = () => {
   return (
     <div className="modification-history container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-200">
-        Modification History
+        Histórico de Modificações
       </h1>
       <div className="mb-6 text-sm text-gray-500 dark:text-gray-400">
-        Note: when undoing tag changes, this will not re-add 'paperless-gpt-auto'
+        Nota: ao desfazer alterações de etiquetas, a etiqueta 'paperless-gpt-auto' não será re-adicionada
       </div>
       {modifications.length === 0 ? (
         <p className="text-gray-500 dark:text-gray-400 text-center">
@@ -137,7 +120,7 @@ const History: React.FC = () => {
           <div className="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
             <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
               <span>
-                Showing {((currentPage - 1) * pageSize) + 1} to {Math.min(currentPage * pageSize, totalItems)} of {totalItems} results
+                A mostrar {((currentPage - 1) * pageSize) + 1} a {Math.min(currentPage * pageSize, totalItems)} de {totalItems} resultados
               </span>
             </div>
             <div className="flex items-center space-x-2">
@@ -150,10 +133,10 @@ const History: React.FC = () => {
                     : 'bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700'
                 }`}
               >
-                Previous
+                Anterior
               </button>
               <span className="text-sm text-gray-600 dark:text-gray-300">
-                Page {currentPage} of {totalPages}
+                Página {currentPage} de {totalPages}
               </span>
               <button
                 onClick={() => setCurrentPage(page => Math.min(totalPages, page + 1))}
@@ -164,7 +147,7 @@ const History: React.FC = () => {
                     : 'bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700'
                 }`}
               >
-                Next
+                Seguinte
               </button>
             </div>
           </div>

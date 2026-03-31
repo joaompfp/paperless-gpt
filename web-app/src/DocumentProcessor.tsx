@@ -75,7 +75,6 @@ const DocumentProcessor: React.FC = () => {
   const [generateCustomFields, setGenerateCustomFields] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Custom hook to fetch initial data
   const fetchInitialData = useCallback(async () => {
     try {
       const [filterTagRes, documentsRes, tagsRes, customFieldsRes] = await Promise.all([
@@ -95,7 +94,7 @@ const DocumentProcessor: React.FC = () => {
       setAvailableTags(tags);
     } catch (err) {
       console.error("Error fetching initial data:", err);
-      setError("Failed to fetch initial data.");
+      setError("Erro ao carregar dados iniciais.");
     } finally {
       setLoading(false);
     }
@@ -124,7 +123,6 @@ const DocumentProcessor: React.FC = () => {
         requestPayload
       );
 
-      // Post-process suggestions to add names and isSelected flag
       const customFieldMap = new Map((allCustomFields || []).map(cf => [cf.id, cf.name]));
       const processedSuggestions = data.map(suggestion => ({
         ...suggestion,
@@ -138,7 +136,7 @@ const DocumentProcessor: React.FC = () => {
       setSuggestions(processedSuggestions);
     } catch (err) {
       console.error("Error generating suggestions:", err);
-      setError("Failed to generate suggestions.");
+      setError("Erro ao gerar sugestões.");
     } finally {
       setProcessing(false);
     }
@@ -148,7 +146,6 @@ const DocumentProcessor: React.FC = () => {
     setUpdating(true);
     setError(null);
     try {
-      // Filter out deselected custom fields before sending
       const payload = suggestions.map(suggestion => {
         const { suggested_custom_fields, ...rest } = suggestion;
         return {
@@ -162,7 +159,7 @@ const DocumentProcessor: React.FC = () => {
       setSuggestions([]);
     } catch (err) {
       console.error("Error updating documents:", err);
-      setError("Failed to update documents.");
+      setError("Erro ao actualizar documentos.");
     } finally {
       setUpdating(false);
     }
@@ -172,10 +169,7 @@ const DocumentProcessor: React.FC = () => {
     setSuggestions((prevSuggestions) =>
       prevSuggestions.map((doc) =>
         doc.id === docId
-          ? {
-              ...doc,
-              suggested_tags: [...(doc.suggested_tags || []), tag.name],
-            }
+          ? { ...doc, suggested_tags: [...(doc.suggested_tags || []), tag.name] }
           : doc
       )
     );
@@ -200,15 +194,11 @@ const DocumentProcessor: React.FC = () => {
     setSuggestions((prevSuggestions) =>
       prevSuggestions.map((doc) =>
         doc.id === docId
-          ? {
-              ...doc,
-              suggested_tags: doc.suggested_tags?.filter((_, i) => i !== index),
-            }
+          ? { ...doc, suggested_tags: doc.suggested_tags?.filter((_, i) => i !== index) }
           : doc
       )
     );
   };
-
 
   const handleTitleChange = (docId: number, title: string) => {
     setSuggestions((prevSuggestions) =>
@@ -224,7 +214,7 @@ const DocumentProcessor: React.FC = () => {
         doc.id === docId ? { ...doc, suggested_correspondent: correspondent } : doc
       )
     );
-  }
+  };
 
   const handleDocumentTypeChange = (docId: number, documentType: string) => {
     setSuggestions((prevSuggestions) =>
@@ -232,7 +222,7 @@ const DocumentProcessor: React.FC = () => {
         doc.id === docId ? { ...doc, suggested_document_type: documentType } : doc
       )
     );
-  }
+  };
 
   const handleCreatedDateChange = (docId: number, createdDate: string) => {
     setSuggestions((prevSuggestions) =>
@@ -240,11 +230,9 @@ const DocumentProcessor: React.FC = () => {
         doc.id === docId ? { ...doc, suggested_created_date: createdDate } : doc
       )
     );
-  }
-
-  const resetSuggestions = () => {
-    setSuggestions([]);
   };
+
+  const resetSuggestions = () => setSuggestions([]);
 
   const reloadDocuments = async () => {
     setLoading(true);
@@ -254,7 +242,7 @@ const DocumentProcessor: React.FC = () => {
       setDocuments(data);
     } catch (err) {
       console.error("Error reloading documents:", err);
-      setError("Failed to reload documents.");
+      setError("Erro ao recarregar documentos.");
     } finally {
       setLoading(false);
     }
@@ -269,7 +257,7 @@ const DocumentProcessor: React.FC = () => {
           setDocuments(data);
         } catch (err) {
           console.error("Error reloading documents:", err);
-          setError("Failed to reload documents.");
+          setError("Erro ao recarregar documentos.");
         }
       }, 500);
       return () => clearInterval(interval);
@@ -280,7 +268,7 @@ const DocumentProcessor: React.FC = () => {
     return (
       <div className="flex items-center justify-center min-h-screen bg-white dark:bg-gray-900">
         <div className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-          Loading documents...
+          A carregar documentos...
         </div>
       </div>
     );
@@ -289,7 +277,7 @@ const DocumentProcessor: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto p-6 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
       <header className="text-center">
-        <h1 className="text-4xl font-bold mb-8">Paperless GPT</h1>
+        <h1 className="text-4xl font-bold mb-8">Arquivo SOS Racismo — IA</h1>
       </header>
 
       {error && (
@@ -299,15 +287,11 @@ const DocumentProcessor: React.FC = () => {
       )}
 
       {documents.length === 0 ? (
-        <NoDocuments
-          filterTag={filterTag}
-          onReload={reloadDocuments}
-          processing={processing}
-        />
+        <NoDocuments filterTag={filterTag} onReload={reloadDocuments} processing={processing} />
       ) : suggestions.length === 0 ? (
         <DocumentsToProcess documents={documents}>
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">Documents to Process</h2>
+            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">Documentos a Processar</h2>
             <div className="flex space-x-2">
               <button
                 onClick={reloadDocuments}
@@ -321,65 +305,35 @@ const DocumentProcessor: React.FC = () => {
                 disabled={processing}
                 className="bg-blue-600 text-white dark:bg-blue-800 dark:text-gray-200 px-4 py-2 rounded hover:bg-blue-700 dark:hover:bg-blue-900 focus:outline-none"
               >
-                {processing ? "Processing..." : "Generate Suggestions"}
+                {processing ? "A processar..." : "Gerar Sugestões"}
               </button>
             </div>
           </div>
 
           <div className="flex space-x-4 mb-6">
             <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                checked={generateTitles}
-                onChange={(e) => setGenerateTitles(e.target.checked)}
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-              <span className="text-gray-700 dark:text-gray-200">Generate Titles</span>
+              <input type="checkbox" checked={generateTitles} onChange={(e) => setGenerateTitles(e.target.checked)} className="dark:bg-gray-700 dark:border-gray-600" />
+              <span className="text-gray-700 dark:text-gray-200">Gerar Títulos</span>
             </label>
             <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                checked={generateTags}
-                onChange={(e) => setGenerateTags(e.target.checked)}
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-              <span className="text-gray-700 dark:text-gray-200">Generate Tags</span>
+              <input type="checkbox" checked={generateTags} onChange={(e) => setGenerateTags(e.target.checked)} className="dark:bg-gray-700 dark:border-gray-600" />
+              <span className="text-gray-700 dark:text-gray-200">Gerar Etiquetas</span>
             </label>
             <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                checked={generateCorrespondents}
-                onChange={(e) => setGenerateCorrespondents(e.target.checked)}
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-              <span className="text-gray-700 dark:text-gray-200">Generate Correspondents</span>
+              <input type="checkbox" checked={generateCorrespondents} onChange={(e) => setGenerateCorrespondents(e.target.checked)} className="dark:bg-gray-700 dark:border-gray-600" />
+              <span className="text-gray-700 dark:text-gray-200">Gerar Correspondentes</span>
             </label>
             <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                checked={generateDocumentTypes}
-                onChange={(e) => setGenerateDocumentTypes(e.target.checked)}
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-              <span className="text-gray-700 dark:text-gray-200">Generate Document Types</span>
+              <input type="checkbox" checked={generateDocumentTypes} onChange={(e) => setGenerateDocumentTypes(e.target.checked)} className="dark:bg-gray-700 dark:border-gray-600" />
+              <span className="text-gray-700 dark:text-gray-200">Gerar Tipos de Documento</span>
             </label>
             <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                checked={generateCreatedDate}
-                onChange={(e) => setGenerateCreatedDate(e.target.checked)}
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-              <span className="text-gray-700 dark:text-gray-200">Generate Created Date</span>
+              <input type="checkbox" checked={generateCreatedDate} onChange={(e) => setGenerateCreatedDate(e.target.checked)} className="dark:bg-gray-700 dark:border-gray-600" />
+              <span className="text-gray-700 dark:text-gray-200">Gerar Data de Criação</span>
             </label>
             <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                checked={generateCustomFields}
-                onChange={(e) => setGenerateCustomFields(e.target.checked)}
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-              <span className="text-gray-700 dark:text-gray-200">Generate Custom Fields</span>
+              <input type="checkbox" checked={generateCustomFields} onChange={(e) => setGenerateCustomFields(e.target.checked)} className="dark:bg-gray-700 dark:border-gray-600" />
+              <span className="text-gray-700 dark:text-gray-200">Gerar Campos Personalizados</span>
             </label>
           </div>
         </DocumentsToProcess>
@@ -402,10 +356,7 @@ const DocumentProcessor: React.FC = () => {
 
       <SuccessModal
         isOpen={isSuccessModalOpen}
-        onClose={() => {
-          setIsSuccessModalOpen(false);
-          reloadDocuments();
-        }}
+        onClose={() => { setIsSuccessModalOpen(false); reloadDocuments(); }}
       />
     </div>
   );

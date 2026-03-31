@@ -33,11 +33,12 @@
   color: rgba(255,255,255,.9);
 }
 
-/* logo img sizing */
+/* logo img sizing — white filter to match Arquivo navbar */
 .sos-navbar-brand img {
   height: 32px;
   width: auto;
   flex-shrink: 0;
+  filter: brightness(0) invert(1);
 }
 
 /* matches: .flex-column with padding:.15rem 0 — sits right next to the logo */

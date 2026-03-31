@@ -57,11 +57,11 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose }) => (
                   as="h3"
                   className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200"
                 >
-                  Documents Updated
+                  Documentos Actualizados
                 </DialogTitle>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    The documents have been successfully updated with the new titles and tags.
+                    Os documentos foram actualizados com sucesso com os novos títulos e etiquetas.
                   </p>
                 </div>
               </div>

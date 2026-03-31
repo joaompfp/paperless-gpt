@@ -40,10 +40,10 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelectPage }) => {
   }, [fetchOcrEnabled]);
 
   const menuItems = [
-    { name: "home", path: "./", icon: mdiHomeOutline, title: "Home" },
-    { name: "adhoc-analysis", path: "./adhoc-analysis", icon: mdiFileChartOutline, title: "Ad-hoc Analysis" },
-    { name: "history", path: "./history", icon: mdiHistory, title: "History" },
-    { name: "settings", path: "./settings", icon: mdiCogOutline, title: "Settings" },
+    { name: "home", path: "./", icon: mdiHomeOutline, title: "In\u00edcio" },
+    { name: "adhoc-analysis", path: "./adhoc-analysis", icon: mdiFileChartOutline, title: "An\u00e1lise Manual" },
+    { name: "history", path: "./history", icon: mdiHistory, title: "Hist\u00f3rico" },
+    { name: "settings", path: "./settings", icon: mdiCogOutline, title: "Configura\u00e7\u00f5es" },
   ];
 
   // If OCR is enabled, add the OCR menu item
@@ -82,8 +82,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelectPage }) => {
               onClick={() => handlePageClick(item.name)}
               style={{ display: "flex", alignItems: "center" }}
             >
-              {/* <Icon path={item.icon} size={1} />
-              {!collapsed && <span>&nbsp; {item.title}</span>} */}
               <div className="w-7 h-7 flex items-center justify-center flex-shrink-0">
                 <Icon path={item.icon} size={1} />
               </div>

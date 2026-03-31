@@ -14,7 +14,7 @@ const NoDocuments: React.FC<NoDocumentsProps> = ({
 }) => (
   <div className="flex flex-col items-center justify-center h-full bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 py-10">
     <p className="text-xl font-semibold mb-4">
-      No documents found with filter tag{" "}
+      Nenhum documento encontrado com a etiqueta de filtro{" "}
       {filterTag && (
         <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium px-2.5 py-0.5 rounded-full">
           {filterTag}
@@ -27,7 +27,7 @@ const NoDocuments: React.FC<NoDocumentsProps> = ({
       disabled={processing}
       className="flex items-center bg-blue-600 dark:bg-blue-800 text-white dark:text-gray-200 px-4 py-2 rounded hover:bg-blue-700 dark:hover:bg-blue-900 focus:outline-none"
     >
-      Reload
+      Recarregar
       <ArrowPathIcon className="h-5 w-5 ml-2" />
     </button>
   </div>

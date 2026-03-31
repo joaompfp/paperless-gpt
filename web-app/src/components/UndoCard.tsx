@@ -20,13 +20,13 @@ const formatDate = (dateString: string | null): string => {
 
   try {
     const date = new Date(dateString);
-    // Check if date is valid
+    // Verificar se a data é válida
     if (isNaN(date.getTime())) {
-      return 'Invalid date';
+      return 'Data inválida';
     }
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
   } catch {
-    return 'Invalid date';
+    return 'Data inválida';
   }
 };
 
@@ -74,11 +74,11 @@ const UndoCard: React.FC<ModificationProps> = ({
   return (
     <div className="undo-card relative bg-white dark:bg-gray-800 p-4 rounded-md shadow-md">
       <div className="grid grid-cols-6">
-        <div className="col-span-5"> {/* Left content */}
+        <div className="col-span-5"> {/* Conteúdo esquerdo */}
           <div className="grid grid-cols-3 gap-4 mb-4">
             <div className="">
               <div className="text-xs uppercase text-gray-500 dark:text-gray-400 font-semibold mb-1">
-                Date Modified
+                Data de Modificação
               </div>
               <div className="text-sm text-gray-700 dark:text-gray-300">
                 {DateChanged && formatDate(DateChanged)}
@@ -92,7 +92,7 @@ const UndoCard: React.FC<ModificationProps> = ({
                 className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 <div className="text-xs uppercase text-gray-500 dark:text-gray-400 font-semibold mb-1">
-                  Document ID
+                  ID do Documento
                 </div>
                 <div className="text-sm text-gray-700 dark:text-gray-300">
                   {DocumentID}
@@ -102,7 +102,7 @@ const UndoCard: React.FC<ModificationProps> = ({
 
             <div className="">
               <div className="text-xs uppercase text-gray-500 dark:text-gray-400 font-semibold mb-1">
-                Modified Field
+                Campo Modificado
               </div>
               <div className="text-sm text-gray-700 dark:text-gray-300">
                 {ModField}
@@ -112,10 +112,10 @@ const UndoCard: React.FC<ModificationProps> = ({
           <div className="mt-3">
             <div className="mt-2 space-y-2">
               <div className={`text-sm flex flex-nowrap ${Undone ? 'line-through' : ''}`}>
-                <span className="text-red-500 dark:text-red-400">Previous: &nbsp;</span>
+                <span className="text-red-500 dark:text-red-400">Anterior: &nbsp;</span>
                 <span
                   className="text-gray-600 dark:text-gray-300 truncate overflow-hidden flex-shrink-0 whitespace-nowrap flex-1 max-w-full group relative"
-                  { // Add tooltip if value is too long and not tags
+                  { // Adicionar tooltip se o valor for demasiado longo e não for tags
                     ...(ModField !== 'tags' && PreviousValue.length > 100 ? {
                     'data-tooltip-id': `tooltip-${ID}-prev`
                   } : {})}
@@ -124,10 +124,10 @@ const UndoCard: React.FC<ModificationProps> = ({
                 </span>
               </div>
               <div className={`text-sm flex flex-nowrap ${Undone ? 'line-through' : ''}`}>
-                <span className="text-green-500 dark:text-green-400">New: &nbsp;</span>
+                <span className="text-green-500 dark:text-green-400">Novo: &nbsp;</span>
                 <span
                   className="text-gray-600 dark:text-gray-300 truncate overflow-hidden flex-shrink-0 whitespace-nowrap flex-1 max-w-full group relative"
-                  { // Add tooltip if value is too long and not tags
+                  { // Adicionar tooltip se o valor for demasiado longo e não for tags
                     ...(ModField !== 'tags' && NewValue.length > 100 ? {
                     'data-tooltip-id': `tooltip-${ID}-new`
                   } : {})}
@@ -166,7 +166,7 @@ const UndoCard: React.FC<ModificationProps> = ({
             </Tooltip>
           </div>
         </div>
-        <div className="grid place-items-center"> {/* Button content */}
+        <div className="grid place-items-center"> {/* Conteúdo do botão */}
           <button
             onClick={() => onUndo(ID)}
             disabled={Undone}
@@ -177,11 +177,11 @@ const UndoCard: React.FC<ModificationProps> = ({
           >
             {Undone ? (
               <>
-                <span className="block text-xs">Undone on</span>
+                <span className="block text-xs">Desfeito em</span>
                 <span className="block text-xs">{formatDate(UndoneDate)}</span>
               </>
             ) : (
-              'Undo'
+              'Desfazer'
             )}
           </button>
         </div>

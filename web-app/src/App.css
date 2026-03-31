@@ -5,36 +5,78 @@
   font-family: 'Hanken Grotesk', system-ui, sans-serif;
 }
 
+/* Navbar — pixel-matches Paperless-NGX Angular navbar:
+   bg-dark = #212529, brand font-size 1rem, .flex-column padding .15rem 0,
+   byline font-size .5rem letter-spacing .1rem text-uppercase font-monospace */
 .sos-navbar {
-  background-color: #1a1a2e;
-  padding: 0.5rem 1rem;
+  background-color: #212529;
+  color: rgba(255,255,255,.55);
+  padding: 0;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 9999;
 }
 
-.sos-navbar-logo {
-  height: 2rem;
-  width: auto;
-  opacity: 0.95;
+.sos-navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: rgba(255,255,255,.9);
 }
 
-.sos-navbar-titles {
+.sos-navbar-brand svg {
+  width: 1.5em;
+  height: 2em;
+  min-width: 1.5em;
+  fill: currentColor;
+}
+
+.sos-navbar-brand-text {
   display: flex;
   flex-direction: column;
-  line-height: 1.1;
+  padding: 0.15rem 0;
 }
 
 .sos-navbar-title {
-  color: #ffffff;
-  font-size: 0.95rem;
+  color: rgba(255,255,255,.9);
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
-.sos-navbar-tagline {
-  color: rgba(255,255,255,0.5);
-  font-size: 0.7rem;
-  font-weight: 400;
+.sos-navbar-byline {
+  font-size: 0.5rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: rgba(255,255,255,.55);
+}
+
+.sos-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  padding-right: 1rem;
+}
+
+.sos-navbar-link {
+  color: rgba(255,255,255,.75);
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  transition: opacity 0.15s;
+}
+
+.sos-navbar-link:hover {
+  color: rgba(255,255,255,.9);
+}
+
+.sos-navbar-link.active {
+  color: #ffffff;
+  font-weight: 600;
 }
